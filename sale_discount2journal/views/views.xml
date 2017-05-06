@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="sale_discount2journal.list">
+      <field name="name">sale_discount2journal list</field>
+      <field name="model">sale_discount2journal.sale_discount2journal</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="sale_discount2journal.action_window">
+      <field name="name">sale_discount2journal window</field>
+      <field name="res_model">sale_discount2journal.sale_discount2journal</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="sale_discount2journal.action_server">
+      <field name="name">sale_discount2journal server</field>
+      <field name="model_id" ref="model_sale_discount2journal_sale_discount2journal"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="sale_discount2journal" id="sale_discount2journal.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="sale_discount2journal.menu_1" parent="sale_discount2journal.menu_root"/>
+    <menuitem name="Menu 2" id="sale_discount2journal.menu_2" parent="sale_discount2journal.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="sale_discount2journal.menu_1_list" parent="sale_discount2journal.menu_1"
+              action="sale_discount2journal.action_window"/>
+    <menuitem name="Server to list" id="sale_discount2journal" parent="sale_discount2journal.menu_2"
+              action="sale_discount2journal.action_server"/>
+    -->
+  </data>
+</odoo>

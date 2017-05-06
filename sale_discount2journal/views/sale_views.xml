@@ -1,0 +1,23 @@
+<odoo>
+  <data>
+    <record id="view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form.salediscount2journal</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+              <data>
+                  <!-- find div discount and add the field price_discountamount to it
+                  <xpath expr="//field[@name='price_unit']" position="after">
+                    <field name="price_discountsubtotal"
+                        attrs="{'readonly': [('qty_invoiced', '&gt;', 0)]}"/>
+                  </xpath>-->
+                  <!-- find field amount_untaxed and add fields total base and total discount to it-->
+                  <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}" position='before'>
+                      <field name="amount_total_base" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                      <field name="amount_total_discount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                  </field>
+              </data>
+            </field>
+     </record>
+  </data>
+</odoo>

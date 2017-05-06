@@ -1,0 +1,18 @@
+<odoo>
+  <data>
+    <record id="product_pricelist_view" model="ir.ui.view">
+            <field name="name">product.pricelist.form</field>
+            <field name="model">product.pricelist</field>
+            <field name="inherit_id" ref="product.product_pricelist_view"/>
+            <field name="arch" type="xml">
+                <div groups="product.group_pricelist_item" position='before'>
+                   <div>
+                     <group string="Accounting Entries">
+                        <field name="acc_code_ids" string="Sales Expense"/>
+                     </group>
+                   </div>
+                </div>
+            </field>
+     </record>
+  </data>
+</odoo>
