@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+       <record id="view_orderexception_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Orders" create="false">
+                    <field name="partner_id"/>
+                    <field name="name" string="Order Number"/>
+                    <field name="credit_raised" />
+                    <field name="currency_id" invisible="1"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>       
+
+      <record model="ir.actions.act_window" id="sale_exception_action">
+          <field name="name"> Sales Exception </field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">sale.order</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+          <field name="view_ids" eval="[(5, 0, 0), 
+            (0, 0, {'view_mode': 'tree','view_id':ref('view_orderexception_tree')}), 
+            (0, 0, {'view_mode': 'form','view_id': ref('view_order_form')})]"/>
+          <field name="domain">[('credit_raised','!=','None')]</field>
+      </record>
+      <menuitem id="sales_team.menu_saleexception_report" name="Sales Exception" parent="sales_team.menu_sale_report" action="sale_exception_action" sequence="12"/>
+  
+    </data>
+</odoo>
