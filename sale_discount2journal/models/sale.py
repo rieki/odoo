@@ -64,7 +64,7 @@ class SaleOrderLine(models.Model):
             })    
 '''   
     
-"""
+
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
     
@@ -80,8 +80,9 @@ class SaleOrderLine(models.Model):
                 'price_total': taxes['total_included'],
                 'price_subtotal': taxes['total_excluded'],
                 'price_discountsubtotal': (line.price_unit - line.price_reduce) * (line.product_uom_qty),
+                #'price_subtotal_undiscounted': taxes['total_excluded'] - 
             })
 
     #PHMTB4 new price_discountamount, price_subtotal_undiscounted
     price_discountsubtotal = fields.Float(compute='_compute_amount', string='Discount Amount', require=True, readonly=True, store=True)
-"""
+    #price_subtotal_undiscounted = fields.Monetary(compute='_compute_amount', string='Undiscounted Subtotal', readonly=True, store=True)
