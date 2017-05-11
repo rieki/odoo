@@ -22,7 +22,7 @@ class Order(models.Model):
   def action_confirm(self):
     for order in self:
       if order.credit_limit == 0 or order.amount_total + order.credit < order.credit_limit or order.state == 'exception':
-          if order.state == 'exception':
+          if order.state == 'exception' or order.credit_raised == 'Denied':
             order.credit_raised = 'Approved'
           return super(Order, self).action_confirm()  
       else:
