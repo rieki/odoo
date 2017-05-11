@@ -21,11 +21,9 @@ class Order(models.Model):
   @api.multi
   def action_confirm(self):
     for order in self:
-      if order.credit_limit == 0 or order.amount_total + order.credit <= order.credit_limit or order.state == 'exception':
-          if order.state == 'exception':
+      if order.credit_limit == 0 or order.amount_total + order.credit < order.credit_limit or order.state == 'exception':
+          if order.state == 'exception' or order.credit_raised == 'Denied':
             order.credit_raised = 'Approved'
-          elif order.credit_raised == 'Denied':
-            order.credit_raised = 'None'
           return super(Order, self).action_confirm()  
       else:
         self.credit_raised = 'For Approval'
