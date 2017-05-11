@@ -17,10 +17,9 @@
       <field name="inherit_id" ref="sale.view_order_form"/>
       <field name="priority">2</field>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='state']" position="replace">
+            <xpath expr="//button[@name='action_done']" position="after">
                 <button name="action_confirm" states="exception" type="object" string="Approve" class="btn-primary" />
                 <button name="action_exception" states="exception" type="object" string="Deny"  />
-                <field name="state" widget="statusbar" statusbar_visible="draft,sent,exception,sale" position="replace"/>
             </xpath>
             <xpath expr="//header" position="after">
                 <div class="alert alert-info" role="alert" style="margin-bottom:0px;" states="exception">

@@ -25,7 +25,7 @@
           <field name="view_ids" eval="[(5, 0, 0), 
             (0, 0, {'view_mode': 'tree','view_id':ref('view_orderexception_tree')}), 
             (0, 0, {'view_mode': 'form','view_id': ref('view_order_form')})]"/>
-          <field name="domain">[('credit_raised','!=','None')]</field>
+          <field name="domain">[('credit_raised','not in',('None','Approved'))]</field>
       </record>
       <menuitem id="sales_team.menu_saleexception_report" name="Sales Exception" parent="sales_team.menu_sale_report" action="sale_exception_action" sequence="12"/>
   

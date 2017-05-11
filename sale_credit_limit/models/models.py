@@ -26,7 +26,7 @@ class Order(models.Model):
             order.credit_raised = 'Approved'
           return super(Order, self).action_confirm()  
       else:
-        self.credit_raised = 'Pending Approval'
+        self.credit_raised = 'For Approval'
         self.state = 'exception'
 
   @api.multi

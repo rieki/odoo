@@ -3,11 +3,10 @@
     'name': "sale_credit_limit",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+       Credit Exception""",
 
     'description': """
-        Long description of module's purpose
+        Modifies sale module, that adds a credit limit to every customers, a credit exception state is raised for customers who exceeds their credit limit which can be approved or denied. 
     """,
 
     'author': "My Company",
