@@ -27,6 +27,7 @@
         'views/views.xml',
         'views/sale_views.xml',
         'views/product_pricelist_views.xml',
+        'views/account_invoice_views.xml',
         'views/templates.xml',
     ],
     # only loaded in demonstration mode

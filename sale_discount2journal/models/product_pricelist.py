@@ -10,3 +10,6 @@ class ProductPricelist(models.Model):
 
     acc_code_ids = fields.Many2one('account.account',
         ondelete='set null', string="Sales Expense")
+    
+    tax_reversal_code_ids = fields.Many2one('account.account',
+        ondelete='set null', string="Tax Reversal")

@@ -9,6 +9,8 @@
                    <div>
                      <group string="Accounting Entries">
                         <field name="acc_code_ids" string="Sales Expense"/>
+                        <field name="tax_reversal_code_ids" string="Tax Reversal"/>
+                       
                      </group>
                    </div>
                 </div>
