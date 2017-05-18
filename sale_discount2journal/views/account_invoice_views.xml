@@ -1,0 +1,17 @@
+<odoo>
+  <data>
+    <record id="invoice_form" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="amount_total" class="oe_subtotal_footer_separator" position="after">
+                   <field name="amt_total_discount"/>
+                   <field name="amt_tax_with_discount"/>
+                  
+                </field>
+                                    
+            </field>
+     </record>
+  </data>
+</odoo>
