@@ -9,7 +9,7 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
     
     #add total discount field and undiscounted amount to SO
-    amount_total_discount = fields.Monetary(string='Total Discount', store=True, readonly=True, compute='_amount_all', track_visibility='always')
+    amount_total_discount = fields.Monetary(string='Less Discount', store=True, readonly=True, compute='_amount_all', track_visibility='always')
     amount_total_base = fields.Monetary(string='Base Amount', store=True, readonly=True, compute='_amount_all', track_visibility='always')
     
     @api.depends('order_line.price_total')
@@ -25,7 +25,7 @@ class SaleOrder(models.Model):
             for line in order.order_line:
                 amount_untaxed += line.price_subtotal 
                 amount_undiscounted += line.price_unit * line.product_uom_qty
-                amount_discount += (line.price_subtotal - line.price_unit * line.product_uom_qty)
+                amount_discount += ((line.price_unit * line.product_uom_qty) * (-1 * (line.discount or 0.0) / 100.0))
                 # FORWARDPORT UP TO 10.0
                 if order.company_id.tax_calculation_rounding_method == 'round_globally':
                     price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
@@ -134,7 +134,7 @@ class SaleOrderLine(models.Model):
                 'price_tax': taxes['total_included'] - taxes['total_excluded'],
                 'price_total': taxes['total_included'],
                 'price_subtotal': taxes['total_excluded'],
-                'price_discountsubtotal': (line.price_unit - line.price_reduce) * (line.product_uom_qty)
+                'price_discountsubtotal': ((line.price_unit * line.product_uom_qty) * (-1 * (line.discount or 0.0) / 100.0))
             })
 
     #new field for discount subtotal

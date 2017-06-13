@@ -56,18 +56,25 @@ class AccountInvoice(models.Model):
         self.amount_untaxed = sum(line.price_subtotal for line in self.invoice_line_ids)
         self.amount_tax = sum(line.amount for line in self.tax_line_ids)
         self.amount_total = self.amount_untaxed + self.amount_tax
-
+         
         amount_total_discounted = 0.0
-        amount_untaxed_temp = self.amount_untaxed
+        amount_total_discount = 0.0
         
         for line in self.invoice_line_ids:
-            self.amt_total_discount += line.price_subtotal - ( line.price_subtotal * (1 - (line.discount or 0.0) / 100.0))       
+            amount_total_discount += ((line.price_unit * line.quantity) * (1 * (line.discount or 0.0) / 100.0))   
+            #get base amount using direct proportionality of discount in undiscounted and discounted values.does not rely on tax since tax in Odoo are buggy
+            self.amt_total_discount += (line.price_subtotal / (1 - ((line.discount or 0.0) / 100.0))) - line.price_subtotal
+            
+        amount_total_discounted = self.amt_total_discount
         
-        amount_total_discounted = self.amount_untaxed - self.amt_total_discount
+        self.amt_tax_with_discount = amount_total_discount - amount_total_discounted
+        
+        ''' replaced as per new comments on invoiced SOs
+        amount_total_discounted = self.amount_untaxed
         
         if self.amount_untaxed:
             self.amt_tax_with_discount = self.amount_tax - (self.amount_tax * amount_total_discounted)/self.amount_untaxed
-        
+        '''
         amount_total_company_signed = self.amount_total
         amount_untaxed_signed = self.amount_untaxed
         
@@ -85,8 +92,8 @@ class AccountInvoice(models.Model):
     def get_taxes_values(self):
         tax_grouped = {}
         for line in self.invoice_line_ids:
-            #price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-            price_unit = line.price_unit
+            price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
+            #price_unit = line.price_unit
             taxes = line.invoice_line_tax_ids.compute_all(price_unit, self.currency_id, line.quantity, line.product_id, self.partner_id)['taxes']
             for tax in taxes:
                 val = self._prepare_tax_line_vals(line, tax)
@@ -118,8 +125,8 @@ class AccountInvoiceLine(models.Model):
         'invoice_id.date_invoice')
     def _compute_price(self):
         currency = self.invoice_id and self.invoice_id.currency_id or None
-        #price = self.price_unit * (1 - (self.discount or 0.0) / 100.0)
-        price = self.price_unit
+        price = self.price_unit * (1 - (self.discount or 0.0) / 100.0)
+        #price = self.price_unit
         taxes = False
         if self.invoice_line_tax_ids:
             taxes = self.invoice_line_tax_ids.compute_all(price, currency, self.quantity, product=self.product_id, partner=self.invoice_id.partner_id)
