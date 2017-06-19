@@ -1,34 +1,32 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Sales Discount to Journal",
+    'name': "Forex Publish Rate",
 
     'summary': """
-       Add chargeability of Sales discount to an Accounting code""",
+       Add Forex publish rate in Currency Maintenance Page""",
 
     'description': """
-        Adds Charging of total Discount to a Sales Order. Chargeability depends on the accounting code set in the pricelist menu.
+        Add Forex publish rate in Currency Maintenance Page
     """,
 
     'author': "Justin Talingdan",
-    'website': "Rieki",
+    'website': "Rieki.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
-    'category': 'Sales',
+    'category': 'Uncategorized',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','sale','product','account'],
+    'depends': ['base'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
-        'views/sale_views.xml',
-        'views/product_pricelist_views.xml',
-        'views/account_invoice_views.xml',
         'views/templates.xml',
+        'views/forex_currency_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
