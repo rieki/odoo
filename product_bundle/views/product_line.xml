@@ -1,0 +1,79 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="product_bundle_view">
+      <field name="name">product.bundle</field>
+      <field name="model">product.template</field>
+      <field name="inherit_id" ref="product.product_template_form_view"/>
+      <field name="arch" type="xml">
+         <xpath expr="//div[@name='options']" position="inside">
+           <div>
+              <field name="bundle_okay"/>
+              <label for="bundle_okay"/>
+            </div>
+         </xpath>
+        <xpath expr="//page[@name='sales']" position="after">
+          <page string="Product Bundle"  attrs ="{'invisible':[('bundle_okay','!=', True)]}">
+              <field name="product_bundle_list" mode="tree,kanban">
+                <form string="Product Bundle Lines">
+                  <group>
+                    <field  context="{'quantity':product_uom_qty,'uom':product_uom}" domain="[('bundle_okay','=',False)]"  name="product_id" />
+                    <field context="{'quantity':product_uom_qty, 'uom':product_uom,'uom_qty_change':True}"   class="oe_inline" name="product_uom_qty" />
+                    <field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button"/>
+                    <field name="price_unit"/>
+                    <field name="tax_id" widget="many2many_tags"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="price_subtotal" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                    
+                  </group>
+                </form>
+                <tree string="Product Bundle Line"  editable="bottom">
+                  <field context="{'quantity':product_uom_qty,'uom':product_uom}" domain="[('bundle_okay','=',False)]" name="product_id"/>
+                  <field context="{'quantity':product_uom_qty, 'uom':product_uom,'uom_qty_change':True}"  name="product_uom_qty"/>
+                  <field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button"/>
+                  <field name="price_unit"/>
+                  <field name="tax_id" widget="many2many_tags" />
+                  <field name="currency_id" invisible="1"  />
+                  <field name="price_subtotal" widget="monetary" />
+                  
+                </tree>
+                <kanban class="o_kanban_mobile">
+                    <field name="product_id"/>
+                    <field name="product_uom_qty"/>
+                    <field name="product_uom" groups="product.group_uom"/>
+                    <field name="price_subtotal"/>
+                    <templates>
+                      <t t-name="kanban-box">
+                          <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                              <div class="row">
+                                  <div class="col-xs-12">
+                                      <strong><span><t t-esc="record.product_id.value"/></span></strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                <div class="col-xs-8 text-muted">
+                                  <span><t t-esc="record.product_uom_qty.value"/> <t t-esc="record.product_uom.value"/></span>
+                                  </div>
+                                  <div class="col-xs-4 text-muted">
+                                    <span class="pull-right text-right"><t t-esc="record.price_subtotal.value"/></span>
+                                  </div>
+                                </div>
+                          </div>
+                      </t>
+                    </templates>
+                </kanban>
+                
+              </field>
+            <group class="oe_subtotal_footer oe_right" colspan="2" name="product_bundle_total">
+                <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                      <label for="amount_total" />
+                </div>
+                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+          </group>
+          </page>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

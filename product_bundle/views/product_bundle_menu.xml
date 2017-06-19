@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="bundle_product">
+            <field name="name">product.bundle</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" string="Product" filter_domain="['|','|',('default_code','ilike',self),('name','ilike',self),('barcode','ilike',self)]"/>          
+                    <filter name="product_bundle" string="Product Bundle" domain="[('bundle_okay','=',True)]" />
+                </search>
+            </field>
+        </record>
+        <record id="product_template_action_bundle" model="ir.actions.act_window">
+            <field name="name">Product Bundle</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_type">form</field>
+            <field name="context">{"search_default_product_bundle":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new product.
+                </p>
+                <p>
+                    You must define a product for everything you sell, whether it's a physical product, a consumable or a service you offer to customers.
+                </p>
+                <p>
+                    The product form contains information to simplify the sale process: price, notes in the quotation, accounting data, procurement methods, etc.
+                </p>
+            </field>
+        </record>
+        <menuitem id="sales_team.product_bundle" name="Product Bundle" parent="sales_team.menu_sales" sequence="20" action="product_template_action_bundle"/>
+        
+    </data>
+</odoo>

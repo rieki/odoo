@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_delivery_document_inherit_product_bundle" inherit_id="stock.report_delivery_document">
+            <xpath expr="//table[@class='table table-condensed mt48']/tbody" position="replace">
+                <thead>
+                            <tr>
+                                <th><strong>move.sale_id"</strong></th>
+                                <th><strong>Ordered Quantity</strong></th>
+                            </tr>
+                        </thead>
+            </xpath>
+        </template>
+</odoo>
