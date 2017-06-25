@@ -10,7 +10,7 @@
                 </search>
             </field>
         </record>
-        <record id="product_template_action_bundle" model="ir.actions.act_window">
+        <!--record id="product_template_action_bundle" model="ir.actions.act_window">
             <field name="name">Product Bundle</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">product.template</field>
@@ -29,7 +29,7 @@
                 </p>
             </field>
         </record>
-        <menuitem id="sales_team.product_bundle" name="Product Bundle" parent="sales_team.menu_sales" sequence="20" action="product_template_action_bundle"/>
+        <menuitem id="sales_team.product_bundle" name="Product Bundle" parent="sales_team.menu_sales" sequence="20" action="product_template_action_bundle"/>-->
         
     </data>
 </odoo>
