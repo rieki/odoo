@@ -69,8 +69,8 @@ class SaleOrders(models.Model):
                     if not is_available:
                         err = err + 1
                         title = _('Not enough inventory!')
-                        message_store = _('-Bundle contains %s %s of %s but you only have %s %s available!\nThe stock on hand is %s %s.') % \
-                                (line.product_uom_qty, line.product_uom.name, line.product_id.name,line.product_id.virtual_available, line.product_id.uom_id.name, line.product_id.qty_available, line.product_id.uom_id.name)
+                        message_store = _('-Bundle contains %s %s of %s but you only have %s %s available!') % \
+                                (line.product_uom_qty, line.product_uom.name, line.product_id.name,line.product_id.virtual_available, line.product_id.uom_id.name)
                         message += message_store + "\n"
 
             if err != 0:
